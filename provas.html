@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Provas - Status da Escola</title>
+  <link rel="stylesheet" href="style.css">
+  <script>
+    try {
+      var __siteTheme = localStorage.getItem('site-theme');
+      if (__siteTheme && __siteTheme !== 'amarelo') document.documentElement.setAttribute('data-theme', __siteTheme);
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="bg-fairy-lights" aria-hidden="true">
+    <span style="--x:6;--y:8;--d:0"></span><span style="--x:14;--y:18;--d:2"></span><span style="--x:22;--y:5;--d:5"></span><span style="--x:31;--y:22;--d:1"></span><span style="--x:38;--y:11;--d:7"></span>
+    <span style="--x:45;--y:28;--d:3"></span><span style="--x:52;--y:7;--d:9"></span><span style="--x:61;--y:16;--d:4"></span><span style="--x:68;--y:25;--d:0"></span><span style="--x:74;--y:9;--d:6"></span>
+    <span style="--x:82;--y:19;--d:2"></span><span style="--x:91;--y:6;--d:8"></span><span style="--x:11;--y:42;--d:5"></span><span style="--x:19;--y:55;--d:1"></span><span style="--x:27;--y:38;--d:10"></span>
+    <span style="--x:36;--y:48;--d:4"></span><span style="--x:44;--y:62;--d:7"></span><span style="--x:53;--y:44;--d:2"></span><span style="--x:62;--y:58;--d:6"></span><span style="--x:71;--y:41;--d:3"></span>
+    <span style="--x:79;--y:52;--d:9"></span><span style="--x:88;--y:35;--d:0"></span><span style="--x:8;--y:72;--d:5"></span><span style="--x:17;--y:85;--d:8"></span><span style="--x:26;--y:68;--d:1"></span>
+    <span style="--x:35;--y:78;--d:4"></span><span style="--x:48;--y:88;--d:6"></span><span style="--x:58;--y:72;--d:2"></span><span style="--x:67;--y:82;--d:7"></span><span style="--x:76;--y:68;--d:3"></span>
+    <span style="--x:85;--y:91;--d:9"></span><span style="--x:93;--y:74;--d:0"></span>
+  </div>
+  <main class="page">
+    <section class="table-section">
+      <span class="badge">Provas</span>
+      <h2 class="title">Lista de Provas</h2>
+      <p class="description">Aqui estão todas as provas agendadas, com data e demais informações.</p>
+      <p id="sheet-updated" class="sheet-meta" aria-live="polite"></p>
+      <div id="table-container"></div>
+      <p id="pending-text"></p>
+      <div class="actions">
+        <a href="index.html" class="button">Voltar ao Início</a>
+        <a href="trabalhos.html" class="button">Ver Trabalhos</a>
+      </div>
+    </section>
+  </main>
+  <script src="script-provas.js"></script>
+  <script src="theme-menu.js"></script>
+</body>
+</html>
