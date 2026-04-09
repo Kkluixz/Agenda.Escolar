@@ -58,40 +58,74 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
+function normalizeCellText(s) {
+  return s
+    .trim()
+    .toLowerCase()
+    .replace(/ç/g, 'c')
+    .normalize('NFD')
+    .replace(/\p{M}/gu, '');
+}
+
+function findStatusColumnIndex(headerCells) {
+  const names = ['status', 'situacao', 'estado'];
+  let idx = -1;
+  headerCells.forEach((header, index) => {
+    const h = normalizeCellText(header.textContent);
+    if (names.includes(h)) idx = index;
+  });
+  return idx;
+}
+
 function calculatePending(table) {
   const rows = table.querySelectorAll('tr');
-  if (rows.length < 2) return;
+  const pendingEl = document.getElementById('pending-text');
+  if (rows.length < 2 || !pendingEl) return;
 
   const headers = rows[0].querySelectorAll('td, th');
-  let dateIndex = -1;
-  headers.forEach((header, index) => {
-    if (header.textContent.trim().toLowerCase() === 'data') {
-      dateIndex = index;
-    }
-  });
+  let statusIndex = findStatusColumnIndex(headers);
 
-  if (dateIndex === -1) return;
+  function rowCells(i) {
+    return rows[i].querySelectorAll('td, th');
+  }
 
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  let count = 0;
+  function isExpirado(text) {
+    const v = normalizeCellText(text);
+    return v.includes('expirado');
+  }
 
-  for (let i = 1; i < rows.length; i++) {
-    const cells = rows[i].querySelectorAll('td, th');
-    if (cells.length > dateIndex) {
-      const dateText = cells[dateIndex].textContent.trim();
-      const parts = dateText.split('/');
-      if (parts.length === 2) {
-        const day = parseInt(parts[0], 10);
-        const month = parseInt(parts[1], 10) - 1;
-        const year = today.getFullYear();
-        const date = new Date(year, month, day);
-        if (date >= today) {
-          count++;
-        }
+  function isPendente(text) {
+    return normalizeCellText(text) === 'pendente';
+  }
+
+  if (statusIndex === -1) {
+    for (let j = 0; j < headers.length; j++) {
+      let hits = 0;
+      for (let i = 1; i < rows.length; i++) {
+        const cells = rowCells(i);
+        if (cells.length > j && isPendente(cells[j].textContent)) hits++;
+      }
+      if (hits > 0) {
+        statusIndex = j;
+        break;
       }
     }
   }
 
-  document.getElementById('pending-text').textContent = `Trabalhos ainda pendentes: ${count}`;
+  if (statusIndex === -1) {
+    pendingEl.textContent = 'Trabalhos ainda pendentes: — (coluna Status não encontrada)';
+    return;
+  }
+
+  let count = 0;
+  for (let i = 1; i < rows.length; i++) {
+    const cells = rowCells(i);
+    if (cells.length <= statusIndex) continue;
+    const statusText = cells[statusIndex].textContent;
+    if (isExpirado(statusText)) continue;
+    if (isPendente(statusText)) count++;
+  }
+
+  pendingEl.innerHTML =
+    'Trabalhos ainda pendentes: <span class="pending-banner__count">' + count + '</span>';
 }

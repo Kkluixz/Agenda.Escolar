@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Provas - Status da Escola</title>
+  <title>Provas — Agenda Digital 2A Exatas</title>
+  <link rel="icon" href="images/logo-site.png" type="image/png">
   <link rel="stylesheet" href="style.css">
   <script>
     try {
@@ -24,11 +25,15 @@
   </div>
   <main class="page">
     <section class="table-section">
+      <div class="site-brand site-brand--compact">
+        <img class="site-brand__logo site-brand__logo--dark" src="images/2a-exatas.png" alt="Agenda Digital 2A Exatas" width="240" height="60" decoding="async">
+        <img class="site-brand__logo site-brand__logo--light" src="images/2a-exatas-black.png" alt="" width="240" height="60" decoding="async" aria-hidden="true">
+      </div>
       <span class="badge">Provas</span>
-      <h2 class="title">Lista de Provas</h2>
+      <h2 class="title title--section">Lista de Provas</h2>
       <p class="description">Aqui estão todas as provas agendadas, com data e demais informações.</p>
       <p id="sheet-updated" class="sheet-meta" aria-live="polite"></p>
-      <p id="pending-text"></p>
+      <p id="pending-text" class="pending-banner" role="status" aria-live="polite"></p>
       <div id="table-container"></div>
       <div class="actions">
         <a href="index.html" class="button">Voltar ao Início</a>

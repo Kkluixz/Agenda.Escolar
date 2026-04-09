@@ -507,6 +507,36 @@ body::after {
   font-weight: 700;
 }
 
+.site-brand {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.site-brand--compact {
+  margin-bottom: 16px;
+}
+
+.site-brand__logo {
+  max-width: min(100%, 320px);
+  height: auto;
+  display: block;
+}
+
+.site-brand__logo--light {
+  display: none;
+}
+
+html[data-theme='branco'] .site-brand__logo--dark {
+  display: none;
+}
+
+html[data-theme='branco'] .site-brand__logo--light {
+  display: block;
+}
+
+
 .title {
   font-size: clamp(2.75rem, 5vw, 4.5rem);
   line-height: 0.95;
